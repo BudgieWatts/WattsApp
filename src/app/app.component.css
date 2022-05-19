@@ -1,0 +1,25 @@
+
+:host {
+  color: black;
+  font-family: sans-serif;
+  margin: auto;
+  padding: 0px;
+}
+
+:host .message {
+  color: darkgreen;
+  font-family: sans-serif;
+  background-color: lightgreen;
+  box-shadow: 10px 10px 5px darkgreen;
+  padding: 14px 14px 26px;
+  border-radius: 10px;
+  margin: 12px 12px 25px;
+  height: auto;
+}
+
+:host .time {
+  float: right;
+  clear: left;
+  color: slategray;
+
+}

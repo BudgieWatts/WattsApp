@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: #e2e5de;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.layout {
+  display: grid;
+  height: 100vh;
+  overflow-scrolling: initial;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header   users"
+    "message   users"
+    "send     users";
+}
+
+.header {
+  grid-area: header;
+}
+
+
+.messages {
+  grid-area: message;
+  overflow: auto;
+}
+
+app-users {
+  grid-area: users;
+  display: flex;
+  height: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow: auto;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+app-send {
+  grid-area: send;
+}
+
+

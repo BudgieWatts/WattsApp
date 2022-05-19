@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  websocketUrl: ''//wss://<api_id>.execute-api.<region>.amazonaws.com/Prod'
 };
 
 /*

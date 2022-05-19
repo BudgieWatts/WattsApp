@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "websockets"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-lxe1okbz2zpf"
+s3_prefix = "websockets"
+region = "eu-west-2"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "TableName=\"simplechat_connections\""
+image_repositories = []

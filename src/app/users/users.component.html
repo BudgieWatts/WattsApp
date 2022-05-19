@@ -1,0 +1,16 @@
+<div class="username-section">
+  <div class="title"><h1>Users</h1></div>
+  <div #usersDiv class="users">
+  <p *ngFor="let user of users" class="user">
+    {{user}}
+  </p>
+  </div>
+  <div class="username-input">
+    <mat-form-field class="text-input" appearance="outline" style="margin-bottom: 0px; padding-bottom: 0px">
+      <input matInput type="text" value="Anonymous" (keydown.enter)="onSend()" [(ngModel)]="username" name="message" #ctrl="ngModel" required>
+    </mat-form-field>
+  </div>
+  <div  class="set-username-button">
+    <button (click)="onSend()" mat-raised-button color="primary" style="margin-bottom: 0px; padding-bottom: 0px; width: 100%">Set name</button>
+  </div>
+</div>

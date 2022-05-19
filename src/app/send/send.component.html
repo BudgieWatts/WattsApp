@@ -1,0 +1,12 @@
+<div class="send-layout">
+<div class="message-input">
+  <mat-form-field class="text-input" appearance="outline" color="accent">
+    <input matInput (keydown.enter)="onSend() "type="text" value="Message here" [(ngModel)]="message" name="message" #ctrl="ngModel" required>
+  </mat-form-field>
+</div>
+<div  class="send-button"><button (click)="onSend()" mat-raised-button color="primary" style="width: 100%;
+  padding: 1.25em 0;
+  line-height: 1;">Send</button>
+</div>
+</div>
+

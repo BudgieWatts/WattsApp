@@ -1,27 +1,40 @@
-# Barbequeue
+# WattsApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.4.
+The AWS bits here are heavily based on the sample code provided by AWS.  I mean it's virtually the same but I added something extra.
 
-## Development server
+The Angular stuff is my own random crap.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## (Probably) incomplete instructions on making this work
 
-## Code scaffolding
+```shell
+#> cd websockets
+#> sam build
+#> sam deploy --guided
+```
+Note the `WebSocketURI` output by the command and add the value to `src/environments/environments.ts`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `npm install` followed by `ng serve` in the root directory of the project and go to http://localhost:4200/
 
-## Build
+Alternatively Google how to serve a static website from an S3 bucket and run `ng build` and copy all the files in `dist/WattsApp` to your S3 bucket.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Yeah, it's stupidly easy to play with WebSockets.
 
-## Running unit tests
+`wscat -c wss://your-url.com` will allow you to send stuff directly to the API Gateway for debugging.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+`> {"action":"sendmessage","data":"hello"}` // send
+`< {"type":"message","content":"hello"}`    // response
 
-## Running end-to-end tests
+`> {"action":"registername","data":"clancy"}` // send
+`< {"type":"joined","name":"clancy"}`         // response
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Are the only valid commands at the time of writing this README (because you know it's not getting updated regularly).
 
-## Further help
+The API Gateway is set up to route requests based on the value of `action`.  See `websockets/template.yaml:25` (`RouteSelectionExpression: "$request.body.action"`).  `RouteKey` is where you specify what each value does.  I think there's also a default route where anything that doesn't match goes but you'd have to look that up.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+*NOTE:* You'll probably have to deploy your API if you make changes - SAM will update the parts but it needs to be 'deployed' to make a difference.  Check the API/Stages section of the AWS Console and fiddle about.  Or just do a `sam delete && sam build && sam deploy`.  I wasted a whole evening getting annoyed because I couldn't work out what was wrong with my SAM template - the answer was nothing as it turned out.  Don't be like me.
+
+As for the frontend part - that's mostly a mystery to me - it's baby's first Angular project and I wouldn't for a second claim to be a front end dev (as is clear from my UI).  Broadly speaking though, I register callbacks with the WebSocketsService and they're activated depending on the `type` of the incoming message.  So far they just push to an array and Angular does some magic.
+
+On the lambda side, it's all about the connectionId and DynamoDB.  I suspect I'll eventually generate a UUID and store that in a cookie on the browser and send the contents in the outgoing messages and use that as a database key.  That way you can reconnect and it can pick your name up.
+
+The whole thing is based on a broadcast paradigm. I thought I'd bookmarked a great looking blog post that used SQS and did a subscribe / push thing but I can't find it.

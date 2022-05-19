@@ -1,0 +1,20 @@
+:host .send-layout {
+  display: grid;
+  grid-template-columns: 9fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "message button";
+
+}
+
+.message-input {
+  grid-area: message;
+}
+
+.text-input {
+  width: 100%;
+}
+
+.send-button {
+  grid-area: button;
+}
